@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CupcakeLover - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/indexlogin.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CupcakeLover</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Cupcakes</a></li>                
+                <li><a href="{{ url_for('contato') }}">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="login-container">
+        <h2>CupcakeLover</h2>
+        <h3>Bem-vindo! <br>Faça login ou cadastre-se</h3><br>               
+        {% if error %}
+        <div class="error-message">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+        
+        <form action="{{ url_for('login') }}" method="post">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+            
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
+            
+            <button type="submit">Entrar</button>
+            <p class="register-link">Não tem uma conta? <a href="{{ url_for('register') }}">Cadastre-se</a></p>
+        </form>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 CupcakeLover - PIT II</p>
+        <p>Redes sociais: <a href="#" style="color: #ff6f91;">Instagram</a> | <a href="#" style="color: #ff6f91;">Facebook</a></p>
+    </footer>
+</body>
+</html>

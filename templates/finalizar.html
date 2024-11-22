@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CupcakeLover - Finalizar Pedido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/finalizar.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CupcakeLover</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Cupcakes</a></li>                
+                <li><a href="{{ url_for('carrinho') }}">Minha Cesta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="finalizar-pedido-container">
+        <h2>Finalizar Pedido</h2>
+
+        <form action="pedido-confirmado.html" method="post" onsubmit="finalizarCompra(event)">
+            <h3>Resumo do Pedido</h3>
+            
+            
+            <div id="pedido-info"></div> 
+
+            <h3>Entrega</h3>
+            <div class="entrega-options">
+                <label><input type="radio" name="entrega" value="buscar-loja" checked> Buscar na Loja</label>
+                <label><input type="radio" name="entrega" value="entrega-domicilio"> Entrega à Domicílio</label>
+            </div>
+
+            <div class="endereco-entrega">                
+                <textarea id="message" name="message" rows="4" norequired placeholder="Endereço de Entrega"></textarea>
+            </div>
+
+            <h3>Método de Pagamento</h3>
+            <div class="pagamento-options">
+                <label><input type="radio" name="pagamento" value="dinheiro" checked> Dinheiro</label>
+                <label><input type="radio" name="pagamento" value="cartao"> Cartão</label>
+                <label><input type="radio" name="pagamento" value="pix"> Pix</label>
+            </div>
+
+            <h4>Total: R$ <span id="total-price">0,00</span></h4>
+
+            <button type="submit">Confirmar Pedido</button>
+        </form>        
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 CupcakeLover - PIT II</p>
+        <p>Redes sociais: <a href="#" style="color: #ff6f91;">Instagram</a> | <a href="#" style="color: #ff6f91;">Facebook</a></p>
+    </footer>
+
+    <script>
+        
+        function exibirPedido() {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const pedidoInfo = document.getElementById('pedido-info');
+            let total = 0;
+
+            if (carrinho.length === 0) {
+                pedidoInfo.innerHTML = "<p>Seu carrinho está vazio!</p>";
+                return;
+            }
+
+            pedidoInfo.innerHTML = ""; 
+            console.log(carrinho, "carrinho exibe")
+            carrinho.forEach(item => {
+                const itemPedido = document.createElement('div');
+                itemPedido.innerHTML = `
+                    <p><strong>${item.sabor.charAt(0).toUpperCase() + item.sabor.slice(1)}</strong></p>
+                    <p>Quantidade: ${item.quantidade}</p>
+                    <p>Preço unitário: R$ ${item.preco.toFixed(2)}</p>
+                    <p>Total: R$ ${(item.preco * item.quantidade).toFixed(2)}</p>
+                    <hr>
+                `;
+                pedidoInfo.appendChild(itemPedido);
+                total += item.preco * item.quantidade;
+            });
+
+            
+            document.getElementById('total-price').textContent = total.toFixed(2);
+        }
+
+        
+        window.onload = function() {
+            exibirPedido();
+        };
+
+        
+        function finalizarCompra(event) {
+            event.preventDefault();
+        
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            if (carrinho.length > 0) {
+                fetch('/finalizar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ carrinho: carrinho })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Pedido finalizado com sucesso!');
+                        localStorage.removeItem('carrinho');
+                        window.location.href = "{{ url_for('pedido_confirmado') }}";
+                    } else {
+                        alert('Erro ao finalizar o pedido!');
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
+            } else {
+                alert('O carrinho está vazio!');
+            }
+        }
+        
+    </script>
+</body>
+</html>

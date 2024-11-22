@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CupcakeLover - Contato</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contato.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CupcakeLover</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Cupcakes</a></li>          
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contact-container">
+        <h2>Entre em Contato</h2>
+        <p>Se você tem alguma dúvida ou deseja saber mais sobre nossos produtos, entre em contato com a nossa loja. Estaremos prontos para atendê-lo!</p>
+
+        <div class="contact-info">
+            <div class="info">
+                <h3>Telefone</h3>
+                <p>(11) 1234-5678</p>
+            </div>
+
+            <div class="info">
+                <h3>Endereço</h3>
+                <p>Rua dos Cupcakes, 123 - Centro, São Paulo - SP</p>
+            </div>
+
+            <div class="info">
+                <h3>E-mail</h3>
+                <p>contato@cupcakelover.com.br</p>
+            </div>
+        </div>
+
+        <form action="mailto:contato@cupcakelover.com.br" method="post" enctype="text/plain">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required placeholder="Seu nome">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required placeholder="Seu e-mail">
+
+            <label for="message">Mensagem:</label>
+            <textarea id="message" name="message" rows="4" required placeholder="Sua mensagem"></textarea>
+
+            <button type="submit">Enviar Mensagem</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 CupcakeLover - PIT II</p>
+        <p>Redes sociais: <a href="#" style="color: #ff6f91;">Instagram</a> | <a href="#" style="color: #ff6f91;">Facebook</a></p>
+    </footer>
+</body>
+</html>

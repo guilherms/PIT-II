@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - CupcakeLover</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CupcakeLover</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Cupcakes</a></li>                
+                <li><a href="{{ url_for('contato') }}">Contato</a></li>
+                <li><a href="{{ url_for('historico') }}">Pedidos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="cart">
+        <h2>Sua Cesta</h2>
+
+        <div class="cart-items" id="cart-items">
+            
+        </div>
+
+        <div class="cart-total">
+            <h3 id="total-price">Total: R$0,00</h3>
+            <button class="finalizar-compra" onclick="finalizarCompra()">Finalizar Compra</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 CupcakeLover - PIT II</p>
+        <p>Redes sociais: <a href="#" style="color: #ff6f91;">Instagram</a> | <a href="#" style="color: #ff6f91;">Facebook</a></p>
+    </footer>
+
+    <script>
+        let cartItems = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+        function renderizarCarrinho() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = ''; 
+
+            let total = 0;
+
+            cartItems.forEach(item => {
+                total += item.preco * item.quantidade;
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <img src="${item.imagem}" alt="Cupcake de ${item.sabor.charAt(0).toUpperCase() + item.sabor.slice(1)}" class="cart-item-image">
+                        <h3>${item.sabor.charAt(0).toUpperCase() + item.sabor.slice(1)}</h3>
+                        <p>Quantidade: ${item.quantidade}</p>
+                        <p>Preço: R$ ${item.preco.toFixed(2)}</p>
+                        <p>Total: R$ ${(item.preco * item.quantidade).toFixed(2)}</p>
+                        <button onclick="removerItem('${item.sabor}')">Remover</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            document.getElementById('total-price').textContent = `Total: R$${total.toFixed(2)}`;
+        }
+
+        function removerItem(sabor) {
+            cartItems = cartItems.filter(item => item.sabor !== sabor);
+            localStorage.setItem('carrinho', JSON.stringify(cartItems)); 
+            renderizarCarrinho(); 
+        }
+
+        function finalizarCompra() {
+            if (cartItems.length > 0) {
+                window.location.href = "{{ url_for('finalizar') }}";  
+            } else {
+                alert('O carrinho está vazio!');
+            }
+        }
+
+        renderizarCarrinho();
+    </script>
+</body>
+</html>

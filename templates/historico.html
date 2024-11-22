@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Pedidos - CupcakeLover</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/historico.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CupcakeLover</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Cupcakes</a></li>
+                <li><a href="{{ url_for('carrinho') }}">Minha Cesta</a></li>
+                <li><a href="{{ url_for('contato') }}">Contato</a></li>
+                <li><a href="{{ url_for('historico') }}">Pedidos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Histórico de Pedidos</h2>
+
+        <div class="history-list" id="history-list">
+            {% if pedidos %}
+                {% for pedido in pedidos %}
+                    <div class="history-item">
+                        <h3>Pedido #{{ pedido.id }} - Status: {{ pedido.status }}</h3>
+                        <p>Data do Pedido: {{ pedido.data.strftime('%d/%m/%Y') }}</p>
+        
+                        <div class="history-item-details">
+                            {% set total = 0 %}
+                            {% for item in pedido.itens %}
+                                <p><strong>{{ item.produto.nome }}</strong> - Quantidade: {{ item.quantidade }}</p>
+                                <p>Preço unitário: R$ {{ item.produto.preco|round(2) }}</p>
+                                <p>Total: R$ {{ (item.produto.preco * item.quantidade)|round(2) }}</p>
+                                <hr>
+                                {% set total = total + (item.produto.preco * item.quantidade) %}
+                            {% endfor %}
+                            <p class="total">Total do Pedido: R$ {{ pedido.valorPedido|round(2) }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Você ainda não fez nenhum pedido.</p>
+            {% endif %}
+        </div>
+        
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 CupcakeLover - PIT II</p>
+        <p>Redes sociais: <a href="#" style="color: #ff6f91;">Instagram</a> | <a href="#" style="color: #ff6f91;">Facebook</a></p>
+    </footer>
+</body>
+</html>

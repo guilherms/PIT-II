@@ -1,0 +1,179 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ff6f91;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.finalizar-pedido-container {
+    background-color: white;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.finalizar-pedido-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #ff6f91;
+}
+
+.finalizar-pedido-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.pedido-info {
+    margin-bottom: 20px;
+}
+
+.pedido-info label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.pedido-info input,
+.pedido-info select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.pedido-info div {
+    margin-bottom: 10px;
+}
+
+.pedido-info input[type="number"] {
+    width: 50px;
+}
+
+.entrega-options {
+    margin-bottom: 20px;
+}
+
+.entrega-options label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.entrega-options input {
+    margin-right: 10px;
+}
+
+.pagamento-options {
+    margin-bottom: 30px;
+}
+
+.pagamento-options label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.pagamento-options input {
+    margin-right: 10px;
+}
+
+.valor-total {
+    margin-bottom: 20px;
+}
+
+.valor-total label {
+    font-weight: bold;
+}
+
+.valor-total input {
+    font-size: 1.2rem;
+    padding: 10px;
+    border: 1px solid #ddd;
+    width: 100%;
+    text-align: center;
+}
+
+button {
+    background-color: #ff6f91;
+    color: white;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+h4 {
+    font-size: 2rem; 
+    font-weight: bold; 
+    color: #ff6f91; 
+    text-align: center; 
+    margin-top: 20px; 
+}
+
+.endereco-entrega textarea {
+    width: 100%; 
+    height: 120px; 
+    padding: 12px; 
+    font-size: 1rem; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    resize: vertical; 
+}
+
+button:hover {
+    background-color: #ff4b6e;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer a {
+    color: #ff6f91;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

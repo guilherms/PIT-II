@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CupcakeLover - Delícias Artesanais</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/indexprodutos.css') }}">
+</head>
+<body>    
+    <header>
+        <h1>CupcakeLover</h1>
+        <nav>
+            <ul>                                              
+                <li><a href="{{ url_for('carrinho') }}">Minha Cesta</a></li>
+                {% if is_logged_in %}
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %} 
+                <li><a href="{{ url_for('contato') }}">Contato</a></li>
+                <li><a href="{{ url_for('historico')}}">Pedidos</a></li>                
+            </ul>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <div class="banner-image"></div> 
+        <div class="banner-text">            
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="product">
+            <img src="https://png.pngtree.com/png-vector/20240809/ourmid/pngtree-a-delicious-chocolate-cupcake-topped-with-rich-frosting-perfect-for-dessert-png-image_13423657.png" alt="Cupcake de Chocolate">
+            <h3>Cupcake de Chocolate</h3>
+            <p>R$12,00</p>
+            <div class="quantity-selector">
+                <label for="quantity-chocolate">Quantidade:</label>
+                <select id="quantity-chocolate" name="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button onclick="adicionarCarrinho('chocolate')">Adicionar à sua Cesta</button>
+        </div>
+        <div class="product">
+            <img src="https://png.pngtree.com/png-vector/20240905/ourmid/pngtree-vanilla-cupcake-with-frosting-and-rainbow-sprinkles-png-image_13754486.png" alt="Cupcake de Baunilha">
+            <h3>Cupcake de Baunilha</h3>
+            <p>R$10,00</p>
+            <div class="quantity-selector">
+                <label for="quantity-baunilha">Quantidade:</label>
+                <select id="quantity-baunilha" name="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button onclick="adicionarCarrinho('baunilha')">Adicionar à sua Cesta</button>
+        </div>
+        <div class="product">
+            <img src="https://png.pngtree.com/png-clipart/20230209/original/pngtree-strawberry-cupcakes-png-image_8948962.png" alt="Cupcake de Morango">
+            <h3>Cupcake de Morango</h3>
+            <p>R$12,00</p>
+            <div class="quantity-selector">
+                <label for="quantity-morango">Quantidade:</label>
+                <select id="quantity-morango" name="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <button onclick="adicionarCarrinho('morango')">Adicionar à sua Cesta</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 CupcakeLover - PIT II</p>
+        <p>Redes sociais: <a href="#" style="color: #ff6f91;">Instagram</a> | <a href="#" style="color: #ff6f91;">Facebook</a></p>
+    </footer>
+
+    <script>
+        function adicionarCarrinho(sabor) {
+            const quantidade = parseInt(document.getElementById(`quantity-${sabor}`).value);
+            let preco;
+            let imagem;
+    
+            if (sabor === 'chocolate') {
+                preco = 12.00;
+                imagem = 'https://png.pngtree.com/png-vector/20240809/ourmid/pngtree-a-delicious-chocolate-cupcake-topped-with-rich-frosting-perfect-for-dessert-png-image_13423657.png';
+            } else if (sabor === 'baunilha') {
+                preco = 10.00;
+                imagem = 'https://png.pngtree.com/png-vector/20240905/ourmid/pngtree-vanilla-cupcake-with-frosting-and-rainbow-sprinkles-png-image_13754486.png';
+            } else if (sabor === 'morango') {
+                preco = 12.00;
+                imagem = 'https://png.pngtree.com/png-clipart/20230209/original/pngtree-strawberry-cupcakes-png-image_8948962.png';
+            }
+    
+            
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    
+            
+            let itemExistente = carrinho.find(item => item.sabor === sabor);
+    
+            if (itemExistente) {
+                
+                
+                itemExistente.quantidade += quantidade;
+            } else {
+                
+                carrinho.push({
+                    sabor: sabor,
+                    quantidade: quantidade,
+                    preco: preco,
+                    imagem: imagem
+                });
+            }
+    
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    
+            
+            alert(`${quantidade} Cupcake(s) de ${sabor.charAt(0).toUpperCase() + sabor.slice(1)} adicionado(s) à sua cesta!`);
+        }
+    </script>
+    
+</body>
+</html>

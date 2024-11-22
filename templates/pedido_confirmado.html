@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Confirmado - CupcakeLover</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pedido_confirmado.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CupcakeLover</h1>
+        <nav>
+            <ul>                
+                <li><a href="{{ url_for('contato') }}">Contato</a></li>                                
+            </ul>
+        </nav>
+    </header>
+
+    <div class="pedido-confirmado-container">
+        <h2>Pedido Feito com Sucesso!</h2>
+        <p>Obrigado pela sua compra! Seu pedido foi registrado e está sendo preparado. Você receberá uma confirmação pelo telefone.</p>
+        <a href="{{ url_for('home') }}" class="btn-voltar">Voltar para a Loja</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 CupcakeLover - PIT II</p>
+        <p>Redes sociais: <a href="#" style="color: #ff6f91;">Instagram</a> | <a href="#" style="color: #ff6f91;">Facebook</a></p>
+    </footer>
+</body>
+</html>
